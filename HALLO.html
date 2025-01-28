@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I'm Sorry</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #ff758c, #ff7eb3);
+            font-family: 'Arial', sans-serif;
+            color: white;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 600px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        h1, h2, h3 {
+            margin: 10px 0;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button {
+            background: #ff477e;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background: #e5366f;
+        }
+
+        .heart {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            margin: 20px auto;
+            transform: rotate(-45deg);
+            animation: heartbeat 1s infinite;
+        }
+
+        .heart::before,
+        .heart::after {
+            content: "";
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            border-radius: 50%;
+            top: -50px;
+            left: 0;
+        }
+
+        .heart::after {
+            top: 0;
+            left: 50px;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% {
+                transform: scale(1) rotate(-45deg);
+            }
+            50% {
+                transform: scale(1.2) rotate(-45deg);
+            }
+        }
+
+        #result {
+            display: none;
+            margin-top: 20px;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .error {
+            color: red;
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .thought-cloud {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #fff;
+            color: #000;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            font-size: 16px;
+            font-weight: bold;
+            max-width: 250px;
+        }
+
+        .thought-cloud::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            right: 100%;
+            border-width: 10px;
+            border-style: solid;
+            border-color: transparent #fff transparent transparent;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Hello, Beautiful!</h1>
+        <p>Please fill in your details below:</p>
+        <form id="detailsForm">
+            <input type="text" id="firstName" placeholder="Your First Name" required>
+            <input type="text" id="lastName" placeholder="Your Last Name" required>
+            <button type="submit">Submit</button>
+        </form>
+        <div id="result">
+            <div class="heart"></div>
+            <h2 id="message"></h2>
+        </div>
+        <div id="errorMessage" class="error"></div>
+    </div>
+
+    <div class="thought-cloud">
+        The key to this app is one and only one girl in this entire world. <br>
+        Don't enter the wrong name.
+    </div>
+
+    <script>
+        const form = document.getElementById("detailsForm");
+        const resultDiv = document.getElementById("result");
+        const message = document.getElementById("message");
+        const errorMessage = document.getElementById("errorMessage");
+
+        form.addEventListener("submit", (e) => {
+            e.preventDefault(); // Prevent page reload
+            const firstName = document.getElementById("firstName").value;
+            const lastName = document.getElementById("lastName").value;
+
+            // Check if the names match "Ananya" and "Kant"
+            if (firstName.toLowerCase() === "ananya" && lastName.toLowerCase() === "kant") {
+                // Generate the message
+                const apologyMessage = `
+                    ${firstName}, this dumb "bhen ka lora" can't even live a second without you. <br>
+                    I know he annoys shit loads, but trust me, he really loves you. ❤️ <br>
+                    He keeps doing foolish things, but he really just wants to be with you all the time. <br><br>
+                    Ik he calls you again and again and spams it, which is yes, very very annoying, <br>
+                    but he does it to know what is troubling his Kantu. He forgets how this rapid-fire <br>
+                    calling feels, so he won’t do that *abse* and he is really, really sorry. 🥺<br><br>
+                    Please forgive him?
+                `;
+                // Show the message
+                message.innerHTML = apologyMessage;
+                resultDiv.style.display = "block";
+                form.style.display = "none"; // Hide the form
+                errorMessage.style.display = "none"; // Hide error message
+            } else {
+                // Show error if names don't match
+                errorMessage.textContent = "You aren't that girl, sorry. This app is only for One girl in this whole world!";
+                errorMessage.style.display = "block";
+                resultDiv.style.display = "none"; // Hide result message
+            }
+        });
+    </script>
+</body>
+</html>
